@@ -1,0 +1,49 @@
+---
+title: "Analysis"
+format: html
+execute:
+  echo: false
+  warning: false
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+#| label: reading data
+x <- read_csv("data/resume.csv")
+
+```
+
+```{r}
+#| label: plots
+
+x |>
+  summarize(s = sum(call), .by = race) |>
+  ggplot(aes(x = race, y = s)) +
+  geom_col() +
+  labs(title = "Black vs White Callback Count",
+       x = "Race",
+       y = "Count")
+
+x |>
+  summarize(n = n(), .by = c(race, call))
+```
+
+
+## General
+
+What is the relationship between race and employment?
+
+## Specific
+
+How much more likely are names that sound white to get a callback compared to names that sound black?
+
+## Preceptor table
+Units: resume
+Variable: race, call, sex
+Outcome: call
+Covariate: race, sex, quality of resume, job, location
+potential outcome: callback if black, callback if white
+
